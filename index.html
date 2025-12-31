@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year Sayang ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --primary: #ff4d6d; --gold: #ffd700; --dark: #0a0a14; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Poppins', sans-serif; background: var(--dark); color: white; overflow: hidden; }
+        
+        #particles-js { position: absolute; width: 100%; height: 100%; z-index: 1; }
+        
+        /* Container untuk Hujan Foto */
+        #photo-rain-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .falling-photo {
+            position: absolute;
+            width: 150px; /* Diperbesar sesuai request */
+            height: 150px; /* Kotak */
+            border-radius: 15px; /* Sudut sedikit melengkung agar estetik */
+            background-size: cover;
+            background-position: center;
+            border: 3px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            opacity: 0;
+            animation: photoFall linear forwards;
+        }
+
+        @keyframes photoFall {
+            0% { transform: translateY(-200px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh); opacity: 0; }
+        }
+
+        .overlay { position: relative; z-index: 10; height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle, rgba(10,10,20,0.4) 0%, rgba(10,10,20,0.8) 100%); }
+        
+        .card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); padding: 30px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.2); text-align: center; max-width: 400px; width: 85%; display: none; }
+        .active { display: block; }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--gold); margin: 10px 0; }
+        input { padding: 12px; border-radius: 10px; border: none; width: 80%; margin-bottom: 15px; text-align: center; font-size: 1rem; }
+        
+        button { background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        #btn-escape { z-index: 1000; transition: transform 0.2s ease; }
+
+        .wa-btn { background: #25d366; text-decoration: none; color: white; display: inline-block; margin-top: 20px; padding: 12px 25px; border-radius: 50px; font-weight: bold; }
+        #typed-text { font-style: italic; min-height: 60px; line-height: 1.6; font-size: 1.1rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+    <div id="photo-rain-container"></div>
+
+    <div class="overlay">
+        <div id="step-pass" class="card active animate__animated animate__fadeInDown">
+            <h2>Access Denied 🔒</h2>
+            <p>Masukkan kata sandi rahasia kita...</p>
+            <input type="text" id="pass-input" placeholder="Masukkan tanggal jadian...">
+            <br>
+            <button onclick="checkPass()">Unlock Love</button>
+        </div>
+
+        <div id="step-escape" class="card animate__animated">
+            <h2>Halo Sayang! ❤️</h2>
+            <p>Coba klik tombol di bawah ini kalau bisa!</p>
+            <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
+                <button id="btn-escape">Klik Aku 🎁</button>
+            </div>
+            <p id="hint" style="font-size: 0.9rem; color: var(--gold); margin-top: 15px; height: 25px; font-weight: bold;"></p>
+        </div>
+
+        <div id="step-final" class="card animate__animated">
+            <h1>Happy 2026!</h1>
+            <p id="typed-text"></p>
+            <audio id="bg-music" loop>
+                <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+            </audio>
+            <a id="wa-link" href="#" target="_blank" class="wa-btn">Kirim Pelukan ke WA 📱</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const KATA_SANDI = "532024"; 
+        const NOMOR_WA = "62895412276357"; 
+        
+        const PHOTO_URLS = [
+            "images/1.jpg",
+            "images/2.jpg",
+            "images/3.jpg",
+            "images/4.jpg",
+            "images/5.jpg",
+            "images/6.jpg",
+            "images/7.jpg",
+            "images/8.jpg",
+            "images/9.jpg",
+            "images/10.jpg",
+            "images/11.jpg",
+            "images/12.jpg",
+            "images/13.jpg",
+            "images/14.jpg",
+            "images/15.jpg",
+            "images/16.jpg",
+            "images/17.jpg",
+            "images/18.jpg",
+            "images/19.jpg",
+            "images/20.jpg",
+            "images/21.jpg",
+            "images/22.jpg",
+            "images/23.jpg",
+            "images/24.jpg",
+            "images/25.jpg",
+            "images/26.jpg",
+            "images/27.jpg",
+            "images/28.jpg",
+            "images/29.jpg",
+            "images/30.jpg",
+            "images/31.jpg",
+            "images/32.jpg",
+        ];
+
+        let escapeCount = 0;
+        const maxEscapes = 5;
+
+        function checkPass() {
+            const input = document.getElementById('pass-input').value.toLowerCase();
+            if(input === KATA_SANDI) {
+                nextStep('step-pass', 'step-escape');
+            } else {
+                Swal.fire({ icon: 'error', title: 'Salah!', text: 'Masa lupa sih?', confirmButtonColor: '#ff4d6d' });
+            }
+        }
+
+        const btnEscape = document.getElementById('btn-escape');
+        const hint = document.getElementById('hint');
+        const phrases = ["Eits! 😜", "Gak kena! 😋", "Ayo kejar! 🏃‍♂️", "Hampir dapet! 🤏", "Oke, terakhir!"];
+
+        btnEscape.addEventListener('mouseover', () => {
+            if (escapeCount < maxEscapes) {
+                const moveDist = 120; 
+                const x = (Math.random() - 0.5) * moveDist * 2;
+                const y = (Math.random() - 0.5) * moveDist * 2;
+                btnEscape.style.transform = `translate(${x}px, ${y}px)`;
+                hint.innerText = phrases[escapeCount];
+                escapeCount++;
+            } else {
+                btnEscape.style.transform = `translate(0, 0)`;
+                btnEscape.style.background = '#2ecc71';
+                btnEscape.innerText = "Klik Sekarang! ❤️";
+                hint.innerText = "Janji gak lari lagi.";
+            }
+        });
+
+        btnEscape.addEventListener('click', () => {
+            document.getElementById('bg-music').play();
+            nextStep('step-escape', 'step-final');
+            startFinalEffect();
+        });
+
+        function nextStep(current, next) {
+            document.getElementById(current).classList.add('animate__fadeOut');
+            setTimeout(() => {
+                document.getElementById(current).style.display = 'none';
+                const n = document.getElementById(next);
+                n.style.display = 'block';
+                n.classList.add('animate__zoomIn');
+            }, 500);
+        }
+
+        function startFinalEffect() {
+            const text = "Tahun 2024 adalah awal kita bertemu masih belum mengenal satu sama lain dan hanya sekedar teman, Tahun 2025 adalah awal dari perjalanan kita dimulai karna disinilah kita berusaha saling mengerti dan ini adalah tahun yang terbaik bagiku karna ada kamu disisiku. Di 2026 ini, aku ingin kita terus bersama, tertawa bersama, dan saling mencintai lebih dalam lagi. Selamat Tahun Baru, Sayang! I LOVE YOU SO MUCH ✨❤️";
+            let i = 0;
+            const target = document.getElementById("typed-text");
+            function type() {
+                if (i < text.length) {
+                    target.innerHTML += text.charAt(i);
+                    i++; setTimeout(type, 50);
+                }
+            }
+            type();
+            document.getElementById('wa-link').href = `https://wa.me/${NOMOR_WA}?text=Happy New Year sayang! ❤️`;
+            
+            updateParticles(100, 5); 
+            startPhotoRain(); 
+        }
+
+        function startPhotoRain() {
+            const container = document.getElementById('photo-rain-container');
+            setInterval(() => {
+                const url = PHOTO_URLS[Math.floor(Math.random() * PHOTO_URLS.length)];
+                const photo = document.createElement('div');
+                photo.className = 'falling-photo';
+                photo.style.backgroundImage = `url('${url}')`;
+                photo.style.left = Math.random() * 90 + 'vw';
+                photo.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                container.appendChild(photo);
+                setTimeout(() => photo.remove(), 7000);
+            }, 600);
+        }
+
+        function updateParticles(num, speed) {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": num },
+                    "color": { "value": ["#ff4d6d", "#ffd700", "#ffffff"] },
+                    "shape": { "type": "circle" },
+                    "move": { "enable": true, "speed": speed, "direction": "none", "out_mode": "out" }
+                }
+            });
+        }
+        updateParticles(30, 1);
+    </script>
+</body>
+</html>
